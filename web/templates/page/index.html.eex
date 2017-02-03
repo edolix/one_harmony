@@ -1,0 +1,24 @@
+<!-- <div class="jumbotron">
+  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
+  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+</div> -->
+
+<%= if @current_user do %>
+  <%= link "Logout", to: auth_path(@conn, :delete), method: :delete, class: "btn btn-danger pull-right" %>
+  <img src="<%= @current_user["picture"] %>" class="img-circle center-block"/>
+  <h2 style="text-align: center;">Ciao, <%= @current_user["name"] %>!</h2>
+  <br>
+  <h3>I tuoi Files:</h3>
+  <dl>
+    <%= for file <- @files do %>
+      <dt><%= file["id"] %></dt>
+      <dd><%= file["name"] %></dd>
+    <% end %>
+  </dl>
+<% else %>
+  <div class="row marketing">
+    <a class="btn btn-primary btn-lg" href="<%= auth_path @conn, :index %>">
+      <i class="fa fa-google"></i> Sign In
+    </a>
+  </div>
+<% end %>
